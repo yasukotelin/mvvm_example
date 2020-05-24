@@ -1,16 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:mvvm_example/ui/util/event.dart';
 import 'package:mvvm_example/ui/util/state.dart';
 
 class LoginViewModel extends ChangeNotifier {
-  UiState _uiState = UiState.Idle;
+  var _uiState = UiState.Idle;
   UiState get uiState => _uiState;
 
-  bool get isLoginButtonEnabled => uiState != UiState.Loading;
+  bool get isLogging => uiState == UiState.Loading;
 
-  StreamController<String> _loginSuccessAction = StreamController<String>();
-  StreamController<String> get loginSuccessAction => _loginSuccessAction;
+  var _loginSuccessAction = StreamController<Event>();
+  StreamController<Event> get loginSuccessAction => _loginSuccessAction;
 
   void login() {
     _uiState = UiState.Loading;
@@ -21,7 +22,7 @@ class LoginViewModel extends ChangeNotifier {
       _uiState = UiState.Loaded;
       notifyListeners();
 
-      _loginSuccessAction.sink.add("success");
+      _loginSuccessAction.sink.add(Event());
     });
   }
 

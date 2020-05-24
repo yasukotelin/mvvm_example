@@ -7,6 +7,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        // Injects LoginViewModel into this widgets.
         ChangeNotifierProvider(create: (_) => LoginViewModel()),
       ],
       child: Scaffold(
@@ -23,13 +24,13 @@ class _LoginPageBody extends StatefulWidget {
 }
 
 class __LoginPageBodyState extends State<_LoginPageBody> {
-
   @override
   void initState() {
     super.initState();
 
+    // Listen events by view model.
     var viewModel = Provider.of<LoginViewModel>(context, listen: false);
-    viewModel.loginSuccessAction.stream.listen((text) {
+    viewModel.loginSuccessAction.stream.listen((_) {
       Navigator.of(context).pushReplacementNamed("/home");
     });
   }
@@ -43,17 +44,27 @@ class __LoginPageBodyState extends State<_LoginPageBody> {
 }
 
 class _LoginButton extends StatelessWidget {
+  String _getButtonText(LoginViewModel vm) =>
+      vm.isLogging ? "Wait..." : "Login";
+
+  VoidCallback _onPressed(LoginViewModel vm) {
+    if (vm.isLogging) {
+      // When returning null, the button become disabled.
+      return null;
+    } else {
+      return () {
+        vm.login();
+      };
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<LoginViewModel>(
       builder: (context, viewModel, _) {
         return RaisedButton(
-          child: Text("Login"),
-          onPressed: !viewModel.isLoginButtonEnabled
-              ? null
-              : () {
-                  viewModel.login();
-                },
+          child: Text(_getButtonText(viewModel)),
+          onPressed: _onPressed(viewModel),
         );
       },
     );

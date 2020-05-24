@@ -1,16 +1,29 @@
 # mvvm_example
 
-A new Flutter project.
+Flutter MVVM Architecture example project.
 
-## Getting Started
+## MVVM
 
-This project is a starting point for a Flutter application.
+![mvvm design](./images/mvvm_architecuture_design.png)
 
-A few resources to get you started if this is your first Flutter project:
+**This project MVVM**
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![mvvm flutter design](./images/mvvm_flutter_design.png)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Demo
+
+<img src="./images/mvvm_example_demo.gif" alt="demo" width="200">
+
+## Dependencies
+
+Very simple.
+
+- [provider](https://pub.dev/packages/provider)
+    - State management in View Model.
+    - Data binding by View Model.
+- [Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)
+    - Event notification by View Model.
+
+## Author
+
+yasukotelin
